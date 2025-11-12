@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fi" data-asset-root="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liukko Olavi – Etusivu</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:#0b1e3a; --bg-2:#10294e; --text:#e6ecff; --muted:#b7c2e5;
+      --accent:#5aa8ff; --success:#2fd37d; --danger:#ff5a7a; --card-radius:1.25rem; --ring:0 0 0 .25rem rgba(90,168,255,.25);
+    }
+    /* perus */
+    html,body{background:var(--bg);color:var(--text)}
+    a{color:var(--accent)} a:hover{color:#b8d7ff}
+    .navbar{background:linear-gradient(180deg,rgba(10,25,50,.95),rgba(10,25,50,.75));backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .hero{background:radial-gradient(1200px 600px at 10% -10%, rgba(90,168,255,.25), transparent),radial-gradient(1000px 500px at 90% -20%, rgba(47,211,125,.15), transparent),var(--bg);padding:6rem 0 4rem}
+    .card-dark{background:var(--bg-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--card-radius)}
+    .btn-accent{--bs-btn-color:#001935;--bs-btn-bg:var(--accent);--bs-btn-border-color:var(--accent);--bs-btn-hover-bg:#71b6ff;--bs-btn-hover-border-color:#71b6ff;--bs-btn-focus-shadow-rgb:90,168,255;box-shadow:var(--ring)}
+    .avatar-placeholder{
+      width:100%; aspect-ratio:1/1; border-radius:1rem;
+      border:2px dashed rgba(255,255,255,.25);
+      display:grid; place-items:center; color:var(--muted);
+      background:repeating-linear-gradient(45deg, rgba(255,255,255,.04), rgba(255,255,255,.04) 12px, transparent 12px, transparent 24px), var(--bg-2);
+      overflow:hidden
+    }
+    /* pienennetään omakuva-boksia isolla näytöllä */
+    @media (min-width: 992px){
+      .avatar-placeholder{ max-width: 320px; margin-left:auto; margin-right:auto; }
+    }
+    .section-title{font-weight:700;letter-spacing:.3px}
+    table td,table th{color:var(--text);border-color:rgba(255,255,255,.08)!important}
+    footer{border-top:1px solid rgba(255,255,255,.08);background:#0a1932}
+    .answer-btn{border:1px solid rgba(255,255,255,.12)}
+    .answer-btn.is-correct{background:rgba(47,211,125,.15);border-color:var(--success);color:#d9ffe9}
+    .answer-btn.is-wrong{background:rgba(255,90,122,.15);border-color:var(--danger);color:#ffd9e1}
+    .answer-btn:disabled{opacity:1}
+
+    /* 3D-tausta näkyviin (tumma, sinertävä) */
+    html, body { background: transparent !important; }
+    .hero { background-color: transparent !important; }
+    #space3d{ position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .navbar, .hero, section, footer { position: relative; z-index: 2; }
+
+    /* HERO-TEKSTIN "LASI"-TAUSTA */
+    .glass-hero {
+      background: rgba(20, 28, 40, 0.45);   /* harmaa/sininen, 45% */
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 1.5rem;
+    }
+
+    /* Quiz-kortit väljemmiksi ja yhtenäiset ”boksit” */
+    .quiz-card{
+      background: var(--bg-2);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: 1rem;
+      padding:1rem;
+      margin-bottom:1rem;
+    }
+    .quiz-options{
+      display:flex; flex-wrap:wrap; gap:.5rem;
+    }
+    .quiz-options .answer-btn{
+      padding:.6rem 1rem;
+      border-radius:.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Three.js -taustakerros -->
+  <div id="space3d" aria-hidden="true"></div>
+
+  <!-- Header / Navigaatio -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-semibold text-light" href="#">Liukko Olavi</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link text-light" href="#minitieto">Minä</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#osaamiset">Osaamiset</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#koulutus">Koulutus</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#tietovisa">Tietovisa</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#yhteys">Yhteys</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-6">
+          <div class="glass-hero">
+            <h1 class="display-5 fw-bold mb-3">Hei! Olen <span class="text-decoration-underline">Liukko Olavi</span>.</h1>
+            <p class="lead mb-0">Tämä on etusivuni. Rakennan parhaillaan portfoliota, jossa yhdistyy selkeys ja pieni ripaus meemiä — asiallisesti. Kuvapaikka lisätään myöhemmin.</p>
+          </div>
+          <div class="d-flex gap-3 mt-4">
+            <a class="btn btn-accent btn-lg" href="#osaamiset">Tutustu osaamiseeni</a>
+            <a class="btn btn-outline-light btn-lg" href="#koulutus">Katso koulutus</a>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="avatar-placeholder overflow-hidden p-0">
+            <!-- Täytetään src automaattisesti valitun asset-rootin mukaan -->
+            <img id="omakuva"
+              src=""
+              alt="Omakuva"
+              loading="lazy"
+              class="w-100 h-100"
+              style="object-fit:cover;border-radius:1rem;"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x600/10294e/e6ecff?text=Omakuva';"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Minä-tieto -->
+  <section id="minitieto" class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-12 col-xl-8">
+          <div class="card-dark p-4 h-100">
+            <h2 class="section-title h3 mb-3">Pieni minä-tieto</h2>
+            <ul class="mb-0">
+              <li><strong>Nimi:</strong> Liukko Olavi</li>
+              <li><strong>Esittely:</strong> (placeholder) Lyhyt esittelyteksti lisätään myöhemmin. Kiinnostuksen kohteet ja tavoitteet kiteytetään 2–3 lauseeseen.</li>
+              <li><strong>Harjoittelukiinnostus:</strong> (placeholder) Esim. pelialan suunnittelu, skriptaus, sisällöntuotanto.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-xl-4">
+          <div class="card-dark p-4 h-100">
+            <h3 class="h5 mb-3">Pikakontaktit</h3>
+            <div class="d-grid gap-2">
+              <a class="btn btn-outline-light" href="#yhteys">Ota yhteyttä</a>
+              <a class="btn btn-outline-light" href="#tyonaytteet">Työnäytteet (tulossa)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Osaamiset -->
+  <section id="osaamiset" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-4">Osaamiset (placeholder)</h2>
+      <div class="table-responsive card-dark p-0 overflow-hidden">
+        <table class="table table-dark table-striped mb-0 align-middle">
+          <thead><tr><th scope="col">Taito</th><th scope="col">Taso</th></tr></thead>
+          <tbody>
+            <tr><td>Pelialan suunnittelija</td><td>Hyvä</td></tr>
+            <tr><td>Käskikirjoittaja</td><td>Loistava</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Koulutus -->
+  <section id="koulutus" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Koulutus (placeholder)</h2>
+      <div class="card-dark p-4">
+        <ul class="mb-0">
+          <li>Rakennusala/AsbestiPurkaja</li>
+          <li>Unityn perustaidot</li>
+          <li>UnrealEnginen perustaidot</li>
+          <li>Xamk IVGC kurssi</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tietovisa -->
+  <section id="tietovisa" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Tietovisa: Pelinkehitys (10 kysymystä)</h2>
+      <div class="card-dark p-4">
+        <p class="mb-4">Vastaa kymmeneen monivalintakysymykseen. Oikea vastaus korostuu vihreällä, väärä punaisella. Lopuksi näet tuloksesi ja voit tallentaa sen nimimerkillä. Tulokset tallentuvat palvelimelle (CSV), ja jos palvelinta ei ole käytössä, laitteesi LocalStorageen.</p>
+        <div id="quiz"></div>
+        <hr class="my-4"/>
+        <div class="row g-3 align-items-center">
+          <div class="col-sm-6 col-md-4">
+            <label for="nick" class="form-label">Nimimerkki</label>
+            <input id="nick" type="text" class="form-control" placeholder="Esim. OlaviDev">
+          </div>
+          <div class="col-sm-6 col-md-auto">
+            <button id="saveScore" class="btn btn-accent mt-3 mt-md-4" disabled>Tallenna tulos</button>
+          </div>
+          <div class="col-md"><div id="result" class="fw-semibold"></div></div>
+        </div>
+        <div class="mt-3"><button id="restart" class="btn btn-outline-light btn-sm d-none">Aloita alusta</button></div>
+        <div class="mt-4"><h3 class="h6 text-muted">Tallennetut tulokset (palvelimelta jos mahdollista, muuten tältä laitteilta)</h3><ul id="savedScores" class="small mb-0"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Yhteys -->
+  <section id="yhteys" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Yhteys</h2>
+      <div class="card-dark p-4"><p class="mb-0">Lomake lisätään myöhemmin. Tähän tulee yhteydenottolomake (PHP), joka lähettää viestin ilman, että sähköpostiohjelma aukeaa.</p></div>
+    </div>
+  </section>
+
+  <footer class="py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <small class="text-muted">© <span id="year"></span> Liukko Olavi</small>
+      <small class="text-muted">Placeholder-versio • Teema: tummansininen • Tietovisassa PHP-tallennus</small>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ========================= -->
+  <!--  ASSET-ROOT AUTODETECT   -->
+  <!-- ========================= -->
+  <script>
+    // Ehdokkaat: suhteellinen ja kaksi palvelinjuurta
+    const ASSET_CANDIDATES = [
+      'assets/',                                   // esim. .../Omasivu/assets/
+      '/home/220112/public_html/Omasivu/assets/',  // täydellinen URL-polku serverillä
+      '/~220112/Omasivu/assets/'                   // UserDir-muoto
+    ];
+
+    // Testataan löytyykö omakuva tästä juuresta
+    function testRoot(root){
+      return new Promise(resolve=>{
+        const probe = new Image();
+        probe.onload = () => resolve(root);
+        probe.onerror = () => resolve(null);
+        probe.src = root + 'img/omakuva.png' + '?v=' + Date.now();
+      });
+    }
+
+    async function pickAssetRoot(){
+      for (const root of ASSET_CANDIDATES){
+        const ok = await testRoot(root);
+        if (ok) return ok;
+      }
+      return ASSET_CANDIDATES[0]; // defaultoi suhteelliseen
+    }
+
+    // Initoidaan kun DOM valmis
+    document.addEventListener('DOMContentLoaded', async ()=>{
+      const root = await pickAssetRoot();
+      document.documentElement.dataset.assetRoot = root;
+
+      // Aseta omakuva
+      const omakuva = document.getElementById('omakuva');
+      if (omakuva){
+        omakuva.src = root + 'img/omakuva.png';
+      }
+
+      // Käynnistä 3D vasta kun root valittu
+      startThreeBackground(root);
+    });
+  </script>
+
+  <!-- Three.js – avaruustausta (ES module, tumma sinertävä) -->
+  <script type="module">
+    // Tyhjä module, varsinainen Three startataan non-module funktiosta yllä,
+    // koska tarvitsemme ensin asset-rootin. Tämä pitää ESM:n mukana CDN:stä.
+    // (three.module.js ladataan dynaamisesti alla olevassa funktiossa.)
+  </script>
+
+  <!-- Three starter (dynamic import after root detection) -->
+  <script>
+    async function startThreeBackground(ASSET_ROOT){
+      const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+
+      const host = document.getElementById('space3d');
+      const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false });
+      renderer.setClearColor('#0b1e3a', 1);
+      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      renderer.setSize(innerWidth, innerHeight);
+      host.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 2000);
+      camera.position.set(0,0,28);
+
+      const sun = new THREE.DirectionalLight(0xbfd8ff, 0.85); sun.position.set(40, 20, 30); scene.add(sun);
+      scene.add(new THREE.AmbientLight(0x142338, 0.35));
+
+      // Tähtikenttä
+      const starsGeo = new THREE.BufferGeometry();
+      const starCount = Math.floor(innerWidth * innerHeight * 0.06);
+      const pos = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++){
+        const r = 500 * (0.6 + Math.random()*0.4);
+        const t = Math.random() * Math.PI * 2;
+        const p = Math.acos(2*Math.random() - 1);
+        pos[i*3+0] = r * Math.sin(p) * Math.cos(t);
+        pos[i*3+1] = r * Math.sin(p) * Math.sin(t);
+        pos[i*3+2] = r * Math.cos(p);
+      }
+      starsGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      const starsMat = new THREE.PointsMaterial({ size: 0.9, sizeAttenuation: true, color: 0x7aa6ff, transparent: true, opacity: 0.8 });
+      const stars = new THREE.Points(starsGeo, starsMat);
+      scene.add(stars);
+
+      // Tekstuurien lataus
+      const loader = new THREE.TextureLoader();
+      const tryLoad = (path, onLoad) => new Promise(resolve => {
+        loader.load(path, tex => { tex.colorSpace = THREE.SRGBColorSpace; onLoad?.(tex); resolve(tex); },
+                         () => resolve(null));
+      });
+
+      const mkPlanet = ({r=4,c=0x6688aa,rough=0.9,pos=[0,0,0],tex=null})=>{
+        const g=new THREE.SphereGeometry(r,64,64);
+        const m=new THREE.MeshStandardMaterial({color:c,roughness:rough,metalness:0});
+        const s=new THREE.Mesh(g,m); s.position.set(...pos);
+        if(tex){ tryLoad(tex, t=>{ m.map=t; m.color.set(0xffffff); m.needsUpdate=true; }); }
+        return s;
+      };
+
+      // Planeetat (toimivat jos tekstuurit ovat ASSET_ROOT/planets/)
+      const jupiter = mkPlanet({r:5.5,c:0xA87C52,rough:0.92,pos:[12,6,-5],  tex: ASSET_ROOT + 'planets/jupiter.jpg'});
+      const mars    = mkPlanet({r:3.3,c:0x7a2f1a,rough:0.95,pos:[-8,-3,-2], tex: ASSET_ROOT + 'planets/mars.jpg'});
+      const saturn  = mkPlanet({r:4.6,c:0x8f816a,rough:0.9 ,pos:[-18,10,-12],tex: ASSET_ROOT + 'planets/saturn.jpg'});
+      scene.add(jupiter, mars, saturn);
+
+      const ringGeo = new THREE.RingGeometry(6.0, 9.0, 256);
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0xded6c2, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
+      const rings = new THREE.Mesh(ringGeo, ringMat); rings.rotation.x = Math.PI/2.8; rings.position.copy(saturn.position); scene.add(rings);
+      tryLoad(ASSET_ROOT + 'planets/saturn_rings.png', tex => { if(tex){ ringMat.map=tex; ringMat.color.set(0xffffff); ringMat.opacity=1; ringMat.needsUpdate=true; }});
+
+      // Parallaksi
+      let mx = 0.5, my = 0.5;
+      addEventListener('mousemove', e => { mx = e.clientX / innerWidth; my = e.clientY / innerHeight; }, { passive:true });
+
+      function onResize(){
+        renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+        renderer.setSize(innerWidth, innerHeight);
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+      }
+      addEventListener('resize', onResize, { passive:true });
+
+      function tick(){
+        jupiter.rotation.y += 0.0014;
+        saturn.rotation.y  += 0.0011;
+        mars.rotation.y    += 0.0018;
+        rings.rotation.z   += 0.00012;
+
+        const tx = (mx - 0.5) * 1.6, ty = (my - 0.5) * 1.0;
+        camera.position.x += (tx*1.7 - camera.position.x) * 0.02;
+        camera.position.y += (-(ty*1.0) - camera.position.y) * 0.02;
+        camera.lookAt(0,0,0);
+
+        stars.rotation.y += 0.00008;
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(tick);
+      }
+      tick();
+    }
+  </script>
+
+  <!-- Vuosi footerissa + Tietovisa -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const quizData = [
+      { q: "Mikä pelimoottori käyttää ensisijaisena skriptikielenään C#:", options:["Unreal Engine","Godot (GDScript)","Unity"], correct:"Unity" },
+      { q: "Mikä on pelimoottorin 'game loopin' päätarkoitus?", options:["Tallentaa pelit automaattisesti pilveen","Päivittää pelimaailman tilaa ja piirtää kuvan jokaisella ruudulla","Generoida äänitehosteet reaaliajassa"], correct:"Päivittää pelimaailman tilaa ja piirtää kuvan jokaisella ruudulla" },
+      { q: "Mitä Git on peliprojektissa?", options:["Pelihahmon tekoälyjärjestelmä","Versionhallintajärjestelmä muutosten seuraamiseen","Grafiikkakirjasto valaistuksen laskentaan"], correct:"Versionhallintajärjestelmä muutosten seuraamiseen" },
+      { q: "Mitä FPS tarkoittaa pelissä?", options:["Ruudunpäivitysten määrää sekunnissa","Verkon viivettä millisekunneissa","Pelaajan sijaintia kartalla"], correct:"Ruudunpäivitysten määrää sekunnissa" },
+      { q: "Mitä 'delta time' (Δt) tarkoittaa peliohjelmoinnissa?", options:["Aikaväli edellisen ja nykyisen ruudun välillä","Pelin kokonaiskesto sekunteina","Objektin massa fysiikkamoottorissa"], correct:"Aikaväli edellisen ja nykyisen ruudun välillä" },
+      { q: "Mikä on Prefab Unityssa?", options:["Uudelleenkäytettävä esiaseteltu objektipohja","Valaistuksen sävyä säätävä shader","Aikajana-animaation nimi"], correct:"Uudelleenkäytettävä esiaseteltu objektipohja" },
+      { q: "Mitä Blueprintit ovat Unreal Enginessä?", options:["Visuaalinen skriptausjärjestelmä","Tekstuurien pakkausmuoto","Fysiikan laskennan optimointitapa"], correct:"Visuaalinen skriptausjärjestelmä" },
+      { q: "Mikä on sprite peligrafiikassa?", options:["2D-kuva/tekstuurigrafiikka, jota piirretään ruudulle","3D-verkko (mesh), jossa on verteksit ja kolmiot","Ääniefekti, joka toistetaan tapahtumasta"], correct:"2D-kuva/tekstuurigrafiikka, jota piirretään ruudulle" },
+      { q: "Mitä varten käytetään collideria/törmäyskomponenttia?", options:["Havaita ja käsitellä törmäyksiä tai päällekkäisyyksiä","Renderöidä varjot dynaamisesti","Synkronoida objektit moninpelissä"], correct:"Havaita ja käsitellä törmäyksiä tai päällekkäisyyksiä" },
+      { q: "Mihin tekstuuri-atlaksen (texture atlas) käyttö auttaa?", options:["Vähentää piirto-/materiaalikutsuja yhdistämällä tekstuureja","Parantaa äänenlaatua ilman pakkausta","Lisää polygonien määrää realistisuutta varten"], correct:"Vähentää piirto-/materiaalikutsuja yhdistämällä tekstuureja" }
+    ];
+
+    const quizRoot = document.getElementById('quiz');
+    const resultEl = document.getElementById('result');
+    const saveBtn = document.getElementById('saveScore');
+    const restartBtn = document.getElementById('restart');
+    const savedList = document.getElementById('savedScores');
+    const TOTAL = quizData.length;
+
+    let score = 0, answered = 0;
+    const shuffle = arr => arr.map(v=>({v,r:Math.random()})).sort((a,b)=>a.r-b.r).map(({v})=>v);
+
+    function renderQuiz(){
+      score = 0; answered = 0; resultEl.textContent = ''; saveBtn.disabled = true; restartBtn.classList.add('d-none'); quizRoot.innerHTML = '';
+      const questions = shuffle(quizData.slice());
+      questions.forEach((item, idx)=>{
+        const card = document.createElement('div'); card.className = 'quiz-card';
+        const h = document.createElement('h3'); h.className = 'h6 mb-3'; h.textContent = `${idx+1}/${TOTAL}: ${item.q}`; card.appendChild(h);
+        const wrap = document.createElement('div'); wrap.className = 'quiz-options';
+        const options = shuffle(item.options.slice());
+        options.forEach(opt=>{
+          const btn = document.createElement('button'); btn.type='button'; btn.className='btn btn-outline-light answer-btn'; btn.textContent = opt;
+          btn.addEventListener('click', ()=>{
+            [...wrap.querySelectorAll('button')].forEach(b=>b.disabled=true);
+            if(opt===item.correct){ btn.classList.remove('btn-outline-light'); btn.classList.add('is-correct'); score++; }
+            else { btn.classList.remove('btn-outline-light'); btn.classList.add('is-wrong'); const c=[...wrap.querySelectorAll('button')].find(b=>b.textContent===item.correct); if(c){ c.classList.remove('btn-outline-light'); c.classList.add('is-correct'); } }
+            answered++; if(answered===TOTAL){ showResult(); }
+          });
+          wrap.appendChild(btn);
+        });
+        card.appendChild(wrap);
+        quizRoot.appendChild(card);
+      });
+    }
+
+    function showResult(){
+      let msg = 'Kannattaa jatkaa lukemista';
+      if(score>=9) msg = 'Olet tietäjä';
+      else if(score>=6) msg = 'Voit vielä vähän kertailla tietoja';
+      resultEl.textContent = `Tuloksesi: ${score}/${TOTAL} — ${msg}`;
+      saveBtn.disabled = false; restartBtn.classList.remove('d-none');
+    }
+
+    saveBtn?.addEventListener('click', async ()=>{
+      const nick = (document.getElementById('nick').value.trim()||'Anonyymi');
+      const entry = {nick, score, total: TOTAL, ts: new Date().toISOString()};
+      let ok=false;
+      try{
+        const resp = await fetch('actions/save_score.php',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({nick:entry.nick,score:String(entry.score),total:String(entry.total)})});
+        const data = await resp.json(); ok = !!data?.success;
+      }catch(e){ ok=false; }
+      if(!ok){ const key='olavi_quiz_scores'; const prev=JSON.parse(localStorage.getItem(key)||'[]'); prev.push(entry); localStorage.setItem(key, JSON.stringify(prev)); }
+      await renderSaved(); saveBtn.disabled = true;
+    });
+
+    restartBtn?.addEventListener('click', renderQuiz);
+
+    async function renderSaved(){
+      savedList.innerHTML = '';
+      let items = null;
+      try{ const resp = await fetch('actions/get_scores.php'); if(resp.ok){ items = await resp.json(); } }catch(e){}
+      if(!Array.isArray(items) || items.length===0){ const key='olavi_quiz_scores'; items = JSON.parse(localStorage.getItem(key)||'[]'); }
+      items.slice().reverse().forEach(i=>{ const li=document.createElement('li'); const d=new Date(i.ts||Date.now()); li.textContent=`${d.toLocaleDateString()} ${d.toLocaleTimeString()} — ${i.nick}: ${i.score}/${i.total}`; savedList.appendChild(li); });
+    }
+
+    renderQuiz(); renderSaved();
+  </script>
+</body>
+</html>

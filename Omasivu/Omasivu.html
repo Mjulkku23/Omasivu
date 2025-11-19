@@ -68,7 +68,7 @@
     .answer-btn.is-wrong{background:rgba(255,90,122,.15);border-color:var(--danger);color:#ffd9e1}
     .answer-btn:disabled{opacity:1}
 
-    /* 3D-tausta kerroksena (ei tehdä body/hero läpinäkyvää) */
+    /* 3D-tausta kerroksena */
     #space3d{ position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     .navbar, .hero, section, footer { position: relative; z-index: 2; }
 
@@ -155,6 +155,21 @@
       visibility: visible;
       transform: translateY(0);
     }
+
+    /* Modal-tyyli AshenRealms-lorea varten */
+    .modal-content{
+      background:var(--bg-2);
+      color:var(--text);
+      border-radius:var(--card-radius);
+      border:1px solid rgba(255,255,255,.25);
+    }
+    .modal-header,
+    .modal-footer{
+      border-color:rgba(255,255,255,.12);
+    }
+    .btn-close{
+      filter: invert(1);
+    }
   </style>
 </head>
 <body data-bs-target="#mainNav">
@@ -172,6 +187,7 @@
           <li class="nav-item"><a class="nav-link" href="#minitieto">Minä</a></li>
           <li class="nav-item"><a class="nav-link" href="#terveys">Terveys</a></li>
           <li class="nav-item"><a class="nav-link" href="#osaamiset">Osaamiset</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tyonaytteet">Työnäytteet</a></li>
           <li class="nav-item"><a class="nav-link" href="#koulutus">Koulutus</a></li>
           <li class="nav-item"><a class="nav-link" href="#tietovisa">Tietovisa</a></li>
           <li class="nav-item"><a class="nav-link" href="#yhteys">Yhteys</a></li>
@@ -185,6 +201,7 @@
     <a href="#minitieto" data-target="minitieto">Minä</a>
     <a href="#terveys" data-target="terveys">Terveys</a>
     <a href="#osaamiset" data-target="osaamiset">Osaamiset</a>
+    <a href="#tyonaytteet" data-target="tyonaytteet">Työnäytteet</a>
     <a href="#koulutus" data-target="koulutus">Koulutus</a>
     <a href="#tietovisa" data-target="tietovisa">Tietovisa</a>
     <a href="#yhteys" data-target="yhteys">Yhteys</a>
@@ -244,7 +261,7 @@
             <h3 class="h5 mb-3">Pikakontaktit</h3>
             <div class="d-grid gap-2">
               <a class="btn btn-outline-light" href="#yhteys">Ota yhteyttä</a>
-              <a class="btn btn-outline-light" href="#tyonaytteet">Työnäytteet (tulossa)</a>
+              <a class="btn btn-outline-light" href="#tyonaytteet">Työnäytteet</a>
             </div>
           </div>
         </div>
@@ -260,7 +277,7 @@
         <div class="col-12 col-lg-6">
           <div class="card-dark p-4 h-100">
             <h3 class="h5">Yleistietoa</h3>
-            <p class="mb-2">Olen <strong>sekasyöjä</strong> ja harrastan <strong>painonnostoa</strong> ja <strong>lenkkeilyä</strong> silloin tällöin. (Muokkaa teksti oman mukaan.)</p>
+            <p class="mb-2">Olen <strong>sekasyöjä</strong> ja harrastan <strong>painonnostoa</strong> ja <strong>lenkkeilyä</strong> silloin tällöin. </p>
             <ul class="mb-0 small">
               <li></li>
               <li></li>
@@ -309,6 +326,115 @@
       </div>
     </div>
   </section>
+
+  <!-- Työnäytteet -->
+  <section id="tyonaytteet" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Työnäytteet</h2>
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <div class="card-dark p-4 h-100">
+            <h3 class="h5 mb-3">Peliprojektit</h3>
+            <ul class="mb-0">
+              <li>
+                <strong>PixelPanzers</strong> – roguelike-tyylinen isometrinen shooter/survival-peli,
+                jossa yhdistyy wave- ja phase-järjestelmä sekä monipuoliset tankkiviholliset ja bossit.
+              </li>
+              <li class="mt-2">
+                <strong>AshenRealms</strong> – tekeillä oleva laaja single player -RPG, joka yhdistää
+                old school -MMORPG-tunnelman modernimpiin mekaniikkoihin. Ensimmäinen demo on
+                tavoitteena julkaista testattavaksi <strong>vuonna 2027</strong>.
+                <div class="mt-2">
+                  <button type="button" class="btn btn-sm btn-accent" data-bs-toggle="modal" data-bs-target="#ashenModal">
+                    Lue lisää AshenRealmsista
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="card-dark p-4 h-100">
+            <h3 class="h5 mb-3">Verkkosivuprojektit</h3>
+            <p class="mb-3 small">
+              Olen osallistunut muutamien peliaiheisten sivustojen suunnitteluun ja ideointiin:
+            </p>
+            <ul class="mb-0">
+              <li>
+                <a href="https://project-epoch.com/" target="_blank" rel="noopener noreferrer">
+                  project-epoch.com
+                </a>
+              </li>
+              <li class="mt-1">
+                <a href="https://ascension.gg/en" target="_blank" rel="noopener noreferrer">
+                  ascension.gg
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AshenRealms – lisätieto modal -->
+  <div class="modal fade" id="ashenModal" tabindex="-1" aria-labelledby="ashenModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ashenModalLabel">AshenRealms – Story &amp; Lore</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sulje"></button>
+        </div>
+        <div class="modal-body">
+          <p>Long ago, AshenRealms was a united and flourishing world. Ancient civilizations, masters of the elements, magic, and deep knowledge, lived in peace and prosperity. Their greatest achievement was the creation of the Ancient Portals, powerful gateways that connected distant continents and isolated, mystical islands.</p>
+
+          <h6 class="mt-3">🔷 The Era of the Ancient Portals</h6>
+          <p>The portals were powered by powerful artifacts, each protected by a different nation or land. These artifacts were not only the keys to the portals but also the source of great magical energy. They were symbols of peace, balance, and connection, and thanks to them, AshenRealms prospered for thousands of years.</p>
+
+          <h6 class="mt-3">⚡ The Fracture of Darkness – The World Divided</h6>
+          <p>But peace never lasts forever. A mysterious catastrophe, known as <em>The Fracture of Darkness</em>, struck without warning. The fracture shattered the balance of the world, broke the portals, and scattered the required artifacts across AshenRealms. The lands were torn apart, leaving the main continents separated and many smaller regions completely isolated.</p>
+          <p>Some areas — especially small islands — became entirely inaccessible. Reaching them now requires the recovery of specific artifacts and the reactivation of the portals.</p>
+
+          <h6 class="mt-3">⚔️ The Rise of a New Hero</h6>
+          <p>Hundreds of years after the fracture, the world remains divided, and its people struggle to survive in the broken AshenRealms. The existence of the portals has faded into legend, and many of the artifacts have been lost to time.</p>
+          <p>It is now up to the player to explore this vast, open world, find the lost artifacts, and reactivate the portals. However, the journey will not be easy — it will require skill, strength, and dedication.</p>
+
+          <h6 class="mt-3">💠 The Meaning of Artifacts &amp; Their Discovery</h6>
+          <p>The artifacts are at the heart of the game. Each artifact is hidden within a large dungeon, protected by a powerful boss. To find and conquer these locations, the player must continuously improve their character's skills, equipment, and abilities.</p>
+          <p>When a player retrieves an artifact, they can open one of the ancient portals and access new, mysterious areas — such as remote islands or previously unreachable lands. These areas offer unique materials, powerful enemies, valuable loot, and new stories to uncover.</p>
+
+          <h6 class="mt-3">📈 Long-Term Skill Training</h6>
+          <p>At the core of AshenRealms is the player's continuous development and skill progression. Survival and advancement depend heavily on the following skills:</p>
+          <ul>
+            <li><strong>Mining &amp; Blacksmithing</strong> – Mine minerals and craft weapons and armor. Players can gather ores and forge equipment that is more effective than what merchants offer.</li>
+            <li><strong>Herbalism &amp; Alchemy</strong> – Gather herbs and plants to create potions. These potions provide essential buffs and restore health or mana during battles.</li>
+            <li><strong>Fishing &amp; Cooking</strong> – Catch fish and cook meals that offer various buffs and help players survive longer, tougher fights.</li>
+            <li><strong>Woodcutting</strong> – Chop down trees, collect materials, and deliver necessary resources to NPCs for quests and crafting.</li>
+          </ul>
+          <p>These skills create a meaningful grind for players who enjoy progression. However, alternative ways to progress will also exist for those who prefer a less grind-heavy experience, such as gaining resources from enemies or NPC merchants. Nevertheless, player-crafted items will always offer small but valuable advantages.</p>
+
+          <h6 class="mt-3">🗺️ Mysterious Areas Beyond the Portals</h6>
+          <p>The main continents are vast, open, and filled with exploration opportunities. However, the islands unlocked through the portals are unique locations where players will face dangerous enemies, discover rare resources, explore ancient ruins, and uncover additional quests.</p>
+          <p>Examples of these islands:</p>
+          <ul>
+            <li><strong>The Forgotten Mines</strong> – Rich in valuable minerals for crafting better gear.</li>
+            <li><strong>Shadow Isles</strong> – Home to dark forces and shadow magic, featuring unique enemies and artifacts.</li>
+            <li><strong>Temple of Ancients</strong> – A place where players can learn advanced combat techniques and special abilities.</li>
+            <li><strong>Library of Mystics</strong> – Contains ancient spells and knowledge for mastering powerful magic.</li>
+          </ul>
+
+          <h6 class="mt-3">🎮 Gameplay Style: Singleplayer &amp; Co-op</h6>
+          <p>AshenRealms is an open-world RPG that can be played solo or in co-op mode. Together with other players, you can explore the world, train skills more efficiently, and face the most challenging enemies as a team. The game world offers something for everyone — whether you prefer combat, crafting, or a more relaxed, immersive experience.</p>
+
+          <h6 class="mt-3">🌅 Cozy, Atmospheric Elements</h6>
+          <p>The game isn’t only about fighting and danger. AshenRealms will feature peaceful areas where players can fish, explore beautiful landscapes, gather rare plants, or simply relax in NPC villages. The world’s beauty, calm moments, and small details will balance out the more intense and challenging parts of the game.</p>
+
+          <h6 class="mt-3">📜 In Summary</h6>
+          <p>AshenRealms is a long-term, open-world RPG that blends RuneScape’s skill-based progression with the depth, atmosphere, and adventure of World of Warcraft Classic. Players will progress by exploring a vast world, training their skills, crafting powerful gear, collecting ancient artifacts, opening portals, and facing mighty foes in dungeons — all while uncovering a rich, forgotten history filled with ancient powers, broken alliances, and hidden secrets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Koulutus -->
   <section id="koulutus" class="py-5">
@@ -361,7 +487,7 @@
         </a>
       </div>
 
-      <!-- Yhteydenottolomake (POST -> /~220112/Omasivu/actions/contact.php) -->
+      <!-- Yhteydenottolomake -->
       <div class="contact-card p-4">
         <form id="contactForm" method="POST" action="/~220112/Omasivu/actions/contact.php" novalidate>
           <div class="row g-3">
@@ -413,7 +539,7 @@
   <!-- Bootstrap Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Three.js – avaruustausta + planeetat (vain GitHub-yhteensopivat polut) -->
+  <!-- Three.js – avaruustausta + planeetat -->
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
@@ -462,7 +588,7 @@
       return s;
     };
 
-    // HUOM: vaihda tiedostonimiin juuri se kirjainkoko, joka repoosi on tallennettu!
+    // HUOM: polut oletuksena GitHub-repon juuresta
     const jupiter = mkPlanet({ r:5.5, c:0xA87C52, rough:0.92, pos:[12,6,-5],  tex:'assets/planets/jupiter.jpg' });
     const mars    = mkPlanet({ r:3.3, c:0x7a2f1a, rough:0.95, pos:[-8,-3,-2], tex:'assets/planets/Mars.jpg' });
     const saturn  = mkPlanet({ r:4.6, c:0x8f816a, rough:0.9 , pos:[-18,10,-12], tex:'assets/planets/Saturn.jpg' });
@@ -476,7 +602,6 @@
     rings.position.copy(saturn.position);
     scene.add(rings);
 
-    // Jos kuva on olemassa repoissa, se käytetään; muuten yksiväriset renkaat jäävät näkyviin
     tryLoad('assets/planets/saturn_rings.png', tex=>{
       ringMat.map = tex; ringMat.color.set(0xffffff); ringMat.opacity=1; ringMat.needsUpdate=true;
     });
@@ -512,7 +637,7 @@
     tick();
   </script>
 
-  <!-- Vuosi footerissa + Tietovisa + Yhteys + Scroll + FloatNav (ennallaan) -->
+  <!-- Vuosi footerissa + Tietovisa + Yhteys + Scroll + FloatNav -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -537,7 +662,7 @@
     window.addEventListener('resize', ()=>{ NAV_H = updateOffsets(); }, {passive:true});
     window.addEventListener('load', ()=>{ NAV_H = updateOffsets(); });
 
-    // Alustetaan Bootstrap ScrollSpy (ei poisteta)
+    // Alustetaan Bootstrap ScrollSpy
     let spy;
     function initScrollSpy(){
       if(spy){ spy.refresh(); return; }
@@ -551,7 +676,7 @@
     window.addEventListener('load', ()=>{ initScrollSpy(); spy && spy.refresh(); });
 
     // ===== Floating nav + Back-to-top =====
-    const sections = ['minitieto','terveys','osaamiset','koulutus','tietovisa','yhteys'];
+    const sections = ['minitieto','terveys','osaamiset','tyonaytteet','koulutus','tietovisa','yhteys'];
     const floatNav = document.getElementById('floatNav');
     const toTopBtn = document.getElementById('toTop');
 
@@ -615,7 +740,7 @@
       setActive('minitieto');
     });
 
-    // ===== Tietovisa (ennallaan) =====
+    // ===== Tietovisa =====
     const quizData = [
       { q:"Mikä pelimoottori käyttää ensisijaisena skriptikielenään C#:", options:["Unreal Engine","Godot (GDScript)","Unity"], correct:"Unity" },
       { q:"Mikä on pelimoottorin 'game loopin' päätarkoitus?", options:["Tallentaa pelit automaattisesti pilveen","Päivittää pelimaailman tilaa ja piirtää kuvan jokaisella ruudulla","Generoida äänitehosteet reaaliajassa"], correct:"Päivittää pelimaailman tilaa ja piirtää kuvan jokaisella ruudulla" },
@@ -654,7 +779,11 @@
           btn.addEventListener('click', ()=>{
             [...wrap.querySelectorAll('button')].forEach(b=>b.disabled=true);
             if(opt===item.correct){ btn.classList.remove('btn-outline-light'); btn.classList.add('is-correct'); score++; }
-            else { btn.classList.remove('btn-outline-light'); btn.classList.add('is-wrong'); const c=[...wrap.querySelectorAll('button')].find(b=>b.textContent===item.correct); if(c){ c.classList.remove('btn-outline-light'); c.classList.add('is-correct'); } }
+            else {
+              btn.classList.remove('btn-outline-light'); btn.classList.add('is-wrong');
+              const c=[...wrap.querySelectorAll('button')].find(b=>b.textContent===item.correct);
+              if(c){ c.classList.remove('btn-outline-light'); c.classList.add('is-correct'); }
+            }
             answered++; if(answered===TOTAL){ showResult(); }
           });
           wrap.appendChild(btn);
@@ -714,6 +843,23 @@
     }
 
     renderQuiz(); renderSaved();
+
+    // Yhteys-lomakkeen kevyt fronttivarmistus
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+    form?.addEventListener('submit', (e)=>{
+      const requiredOk = ['name','email','subject','message'].every(id=>{
+        const el=document.getElementById(id);
+        if(!el.value.trim()){ el.classList.add('is-invalid'); return false; }
+        el.classList.remove('is-invalid'); return true;
+      });
+      if(!requiredOk){
+        e.preventDefault();
+        statusEl.textContent='Täytä puuttuvat kentät.';
+        return;
+      }
+      statusEl.textContent='Lähetetään...';
+    });
   </script>
 </body>
 </html>

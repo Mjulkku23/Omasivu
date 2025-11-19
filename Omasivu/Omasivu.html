@@ -170,6 +170,13 @@
     .btn-close{
       filter: invert(1);
     }
+
+    /* BMI-tuloksen näkyvyys */
+    #bmiOut{
+      color: var(--success);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 <body data-bs-target="#mainNav">
@@ -539,7 +546,7 @@
   <!-- Bootstrap Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Three.js – avaruustausta + planeetat -->
+  <!-- Three.js – avaruustausta + planeetat (alkuperäinen) -->
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
@@ -637,9 +644,52 @@
     tick();
   </script>
 
-  <!-- Vuosi footerissa + Tietovisa + Yhteys + Scroll + FloatNav -->
+  <!-- Vuosi footerissa + Tietovisa + Yhteys + Scroll + FloatNav + BMI -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ===== BMI-laskuri ===== */
+(function(){
+  const weightInput = document.getElementById('bmiWeight');
+  const heightInput = document.getElementById('bmiHeight');
+  const btn = document.getElementById('bmiBtn');
+  const out = document.getElementById('bmiOut');
+
+  if(!weightInput || !heightInput || !btn || !out) return;
+
+  // Tehdään tuloksesta vaalea ja selkeä
+  out.classList.remove('text-muted');      // poistaa harmaan bootstrap-tyylin
+  out.style.color = '#ffffff';             // täysin valkoinen
+  out.style.fontWeight = '600';            // hieman lihavoitu
+  out.style.fontSize = '0.95rem';          // aavistuksen isompi
+
+  function getBMICategory(bmi){
+    if (bmi < 18.5) return 'Ota porkkana';
+    if (bmi < 25)   return 'Normaali paino';
+    if (bmi < 30)   return 'Ylipaino';
+    if (bmi < 35)   return 'Lievä lihavuus';
+    if (bmi < 40)   return 'Menisit töihin';
+    return 'Olet Läski :D';
+  }
+
+  btn.addEventListener('click', () => {
+    const w = parseFloat(String(weightInput.value).replace(',', '.'));
+    const hCm = parseFloat(String(heightInput.value).replace(',', '.'));
+
+    if (!w || !hCm || w <= 0 || hCm <= 0) {
+      out.textContent = 'Anna paino ja pituus oikein.';
+      return;
+    }
+
+    const hM = hCm / 100;
+    const bmi = w / (hM * hM);
+    const rounded = Math.round(bmi * 10) / 10; // halutessasi vaihda 5 desimaaliin
+    const cat = getBMICategory(bmi);
+
+    out.textContent = `BMI: ${rounded.toFixed(1)} — ${cat}`;
+  });
+})();
+
 
     // NAV-varjo skrollissa
     (function(){

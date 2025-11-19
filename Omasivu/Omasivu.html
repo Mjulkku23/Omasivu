@@ -205,14 +205,16 @@
         </div>
         <div class="col-12 col-lg-6">
           <div class="avatar-placeholder overflow-hidden p-0">
+            <!-- KORJATTU KUVA-POLKU: assets/omakuva.png -->
             <img
-              src="/~220112/Omasivu/assets/img/omakuva.png"
+              id="omakuva"
+              src="assets/omakuva.png"
               alt="Omakuva"
               loading="lazy"
               class="w-100 h-100"
               style="object-fit:cover;border-radius:1rem;"
               onerror="this.onerror=null;this.src='https://placehold.co/600x600/10294e/e6ecff?text=Omakuva';"
-            >
+            />
           </div>
         </div>
       </div>
@@ -308,7 +310,7 @@
   <section id="koulutus" class="py-5">
     <div class="container">
       <h2 class="section-title h3 mb-3">Koulutus</h2>
-      <div class="card-dark p-4">
+    <div class="card-dark p-4">
         <ul class="mb-0">
           <li>Rakennusala/AsbestiPurkaja</li>
           <li>Unityn perustaidot</li>
@@ -567,7 +569,7 @@
       });
     }, {
       root: null,
-      threshold: 0.5,               // osio on aktiivinen kun ~50% näkyvissä
+      threshold: 0.5,
       rootMargin: `-${NAV_H}px 0px 0px 0px`
     });
 

@@ -98,6 +98,59 @@
     .quiz-card{ background:rgba(16,41,78,.6); border:1px solid rgba(255,255,255,.08); border-radius:1rem; padding:1.25rem; margin-bottom:1rem; }
     .quiz-options .answer-btn{ display:block; width:100%; text-align:left; padding:.75rem 1rem; border-radius:.75rem; }
     .quiz-options{ display:grid; gap:.5rem; }
+
+    /* FLOATING NAV (oikealla) */
+    #floatNav{
+      position: fixed;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      z-index: 3;
+      background: rgba(16,41,78,.6);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: 1rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: .5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    #floatNav a{
+      display:block;
+      white-space:nowrap;
+      color:#dfe6ff;
+      text-decoration:none;
+      padding:.45rem .75rem;
+      border-radius:.75rem;
+      border:1px solid transparent;
+      font-size:.925rem;
+    }
+    #floatNav a:hover{ color:#fff; background:rgba(255,255,255,.06); }
+    #floatNav a.active{
+      color:#001935;
+      background:var(--accent);
+      border-color:var(--accent);
+      box-shadow: var(--ring);
+    }
+    @media (max-width: 991.98px){
+      #floatNav{ display:none !important; }
+    }
+
+    /* BACK TO TOP */
+    #toTop{
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 3;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: all .2s ease;
+    }
+    #toTop.is-visible{
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body data-bs-target="#mainNav">
@@ -123,14 +176,27 @@
     </div>
   </nav>
 
+  <!-- FLOATING NAV (oikea reuna) -->
+  <nav id="floatNav" class="d-none d-lg-flex flex-column gap-1">
+    <a href="#minitieto" data-target="minitieto">Minä</a>
+    <a href="#terveys" data-target="terveys">Terveys</a>
+    <a href="#osaamiset" data-target="osaamiset">Osaamiset</a>
+    <a href="#koulutus" data-target="koulutus">Koulutus</a>
+    <a href="#tietovisa" data-target="tietovisa">Tietovisa</a>
+    <a href="#yhteys" data-target="yhteys">Yhteys</a>
+  </nav>
+
+  <!-- BACK TO TOP -->
+  <button id="toTop" class="btn btn-accent btn-lg" aria-label="Takaisin ylös">↑</button>
+
   <!-- Hero -->
   <header id="top" class="hero">
     <div class="container">
       <div class="row align-items-center g-4">
         <div class="col-12 col-lg-6">
           <div class="glass-hero">
-            <h1 class="display-5 fw-bold mb-3">Hei! Olen <span class="text-decoration-underline">Liukko Olavi</span>.</h1>
-            <p class="lead mb-0">Tämä on etusivuni. Rakennan parhaillaan portfoliota, jossa yhdistyy selkeys ja pieni ripaus meemiä — asiallisesti. Kuvapaikka lisätään myöhemmin.</p>
+            <h1 class="display-5 fw-bold mb-3">Tere! <span class="text-decoration-underline">Liukko Olavi</span>.</h1>
+            <p class="lead mb-0">Tässä eka omasivuni toevottavasti kelepaa.</p>
           </div>
           <div class="d-flex gap-3 mt-4">
             <a class="btn btn-accent btn-lg" href="#osaamiset">Tutustu osaamiseeni</a>
@@ -162,8 +228,8 @@
             <h2 class="section-title h3 mb-3">Pieni minä-tieto</h2>
             <ul class="mb-0">
               <li><strong>Nimi:</strong> Liukko Olavi</li>
-              <li><strong>Esittely:</strong> (muokkaa itse) Lyhyt esittelyteksti.</li>
-              <li><strong>Harjoittelukiinnostus:</strong> (muokkaa itse) Esim. pelialan suunnittelu, skriptaus, sisällöntuotanto.</li>
+              <li><strong>Esittely:</strong> Olen 23vuotias 2lapsen isä ja toimin pelinkehittäjänä. Sivuston teema on avaruus/scifi tyylinen, en tiedä miksi tuli vain mieleen.</li>
+              <li><strong>Harjoittelukiinnostus:</strong> Pelialan suunnittelu, skriptaus sekä ehkä sisällöntuotanto.</li>
             </ul>
           </div>
         </div>
@@ -190,9 +256,9 @@
             <h3 class="h5">Yleistietoa</h3>
             <p class="mb-2">Olen <strong>sekasyöjä</strong> ja harrastan <strong>painonnostoa</strong> ja <strong>lenkkeilyä</strong> silloin tällöin. (Muokkaa teksti oman mukaan.)</p>
             <ul class="mb-0 small">
-              <li>Verenpaineen suuntaa-antuvat rajat (mmHg): normaali ~120/80, koholla ≥130/85.</li>
-              <li>Ruokavalio: kasviksia, proteiinia, hyviä rasvoja; riittävä juominen.</li>
-              <li>Liikunta: aloittelija 2–3 × vko, kuntoliikkuja 3–4 × vko, urheilija ohjelmoidusti.</li>
+              <li></li>
+              <li></li>
+              <li></li>
             </ul>
           </div>
         </div>
@@ -436,7 +502,7 @@
     tick();
   </script>
 
-  <!-- Vuosi footerissa + Tietovisa + Yhteys + Scrollspy -->
+  <!-- Vuosi footerissa + Tietovisa + Yhteys + Scroll + FloatNav -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -455,27 +521,97 @@
       document.querySelectorAll('header.hero, section[id]').forEach(el=>{
         el.style.scrollMarginTop = `${Math.round(h)}px`;
       });
+      return Math.round(h);
     }
-    updateOffsets();
-    window.addEventListener('resize', updateOffsets, {passive:true});
-    window.addEventListener('load', updateOffsets);
+    let NAV_H = updateOffsets();
+    window.addEventListener('resize', ()=>{ NAV_H = updateOffsets(); }, {passive:true});
+    window.addEventListener('load', ()=>{ NAV_H = updateOffsets(); });
 
-    // Alustetaan Bootstrap ScrollSpy (BS 5.3 käyttää IntersectionObserveria)
+    // Alustetaan Bootstrap ScrollSpy (ei poisteta)
     let spy;
     function initScrollSpy(){
       if(spy){ spy.refresh(); return; }
       spy = new bootstrap.ScrollSpy(document.body, {
         target: '#mainNav',
-        rootMargin: '0px 0px -60%',   // aktivoi linkin hieman ennen kuin osio poistuu ruudun alta
+        rootMargin: '0px 0px -60%',
         smoothScroll: true
       });
     }
     document.addEventListener('DOMContentLoaded', initScrollSpy);
     window.addEventListener('load', ()=>{ initScrollSpy(); spy && spy.refresh(); });
 
-    // Päivitetään scrollspy dynaamisen sisällön jälkeenkin
-    const ro = new ResizeObserver(()=>{ spy && spy.refresh(); updateOffsets(); });
-    ro.observe(document.body);
+    // ===== Floating nav + Back-to-top =====
+    const sections = ['minitieto','terveys','osaamiset','koulutus','tietovisa','yhteys'];
+    const floatNav = document.getElementById('floatNav');
+    const toTopBtn = document.getElementById('toTop');
+
+    // Active state -apu molempiin naveihin
+    function setActive(id){
+      // main nav
+      document.querySelectorAll('#mainNav .nav-link').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+      // floating nav
+      document.querySelectorAll('#floatNav a').forEach(a=>{
+        a.classList.toggle('active', a.dataset.target === id);
+      });
+    }
+
+    // IntersectionObserver seuraamaan osioita
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const id = entry.target.id;
+          if(sections.includes(id)) setActive(id);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.5,               // osio on aktiivinen kun ~50% näkyvissä
+      rootMargin: `-${NAV_H}px 0px 0px 0px`
+    });
+
+    sections.forEach(id=>{
+      const el = document.getElementById(id);
+      if(el){ observer.observe(el); }
+    });
+
+    // Klikkaus – huomioidaan sticky navin korkeus (custom scroll)
+    function smartScrollTo(hash){
+      const id = hash.replace('#','');
+      const el = document.getElementById(id);
+      if(!el) return;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - (NAV_H + 8);
+      window.scrollTo({ top:y, behavior:'smooth' });
+    }
+
+    // Kytketään molempiin naveihin
+    document.querySelectorAll('#mainNav a.nav-link, #floatNav a').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href && href.startsWith('#')){
+          e.preventDefault();
+          smartScrollTo(href);
+          // mobiilissa sulje hamburger
+          const navCollapse = document.getElementById('nav');
+          if(navCollapse?.classList.contains('show')){
+            new bootstrap.Collapse(navCollapse).hide();
+          }
+        }
+      });
+    });
+
+    // Back-to-top
+    const showTop = ()=> {
+      const show = window.scrollY > 300;
+      toTopBtn.classList.toggle('is-visible', show);
+    };
+    showTop();
+    window.addEventListener('scroll', showTop, {passive:true});
+    toTopBtn.addEventListener('click', ()=>{
+      window.scrollTo({top:0, behavior:'smooth'});
+      setActive('minitieto');
+    });
 
     // ===== Tietovisa =====
     const quizData = [

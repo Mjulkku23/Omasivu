@@ -232,7 +232,6 @@
           </div>
         </div>
         <div class="col-12 col-lg-6">
-<<<<<<< HEAD
           <div class="row g-3">
             <div class="col-12 col-md-6">
               <div class="avatar-placeholder overflow-hidden p-0">
@@ -262,19 +261,6 @@
                 </div>
               </div>
             </div>
-=======
-          <div class="avatar-placeholder overflow-hidden p-0">
-            <!-- Omakuva -->
-            <img
-              id="omakuva"
-              src=/omakuva.png"
-              alt="Omakuva"
-              loading="lazy"
-              class="w-100 h-100"
-              style="object-fit:cover;border-radius:1rem;"
-              onerror="this.onerror=null;this.src='https://placehold.co/600x600/10294e/e6ecff?text=Omakuva';"
-            />
->>>>>>> e5bf15775005f9fab2690060b8dabc8b4b701d54
           </div>
         </div>
       </div>
@@ -715,7 +701,7 @@
 
         const hM = hCm / 100;
         const bmi = w / (hM * hM);
-        const rounded = Math.round(bmi * 10) / 10; // halutessasi vaihda 5 desimaaliin
+        const rounded = Math.round(bmi * 10) / 10;
         const cat = getBMICategory(bmi);
 
         out.textContent = `BMI: ${rounded.toFixed(1)} — ${cat}`;
@@ -824,7 +810,7 @@
     // ===== Tietovisa =====
     const quizData = [
       { q:"Mikä pelimoottori käyttää ensisijaisena skriptikielenään C#:", options:["Unreal Engine","Godot (GDScript)","Unity"], correct:"Unity" },
-      { q:"Mikä on pelimoottorin 'game loopin' päätarkoitus?", options:["Tallentaa pelit automaattisesti pilveen","Päivittää pelимаailman tilaa ja piirtää kuvan jokaisella ruudulla","Generoida äänitehosteet reaaliajassa"], correct:"Päivittää pelimaailman tilaa ja piirtää kuvan jokaisella ruudulla" },
+      { q:"Mikä on pelimoottorin 'game loopin' päätarkoitus?", options:["Tallentaa pelit automaattisesti pilveen","Päivittää pelimaailman tilaa ja piirtää kuvan jokaisella ruudulla","Generoida äänitehosteet reaaliajassa"], correct:"Päivittää pelimaailman tilaa ja piirtää kuvan jokaisella ruudulla" },
       { q:"Mitä Git on peliprojektissa?", options:["Pelihahmon tekoälyjärjestelmä","Versionhallintajärjestelmä muutosten seuraamiseen","Grafiikkakirjasto valaistuksen laskentaan"], correct:"Versionhallintajärjestelmä muutosten seuraamiseen" },
       { q:"Mitä FPS tarkoittaa pelissä?", options:["Ruudunpäivitysten määrää sekunnissa","Verkon viivettä millisekunneissa","Pelaajan sijaintia kartalla"], correct:"Ruudunpäivitysten määrää sekunnissa" },
       { q:"Mitä 'delta time' (Δt) tarkoittaa peliohjelmoinnissa?", options:["Aikaväli edellisen ja nykyisen ruudun välillä","Pelin kokonaiskesto sekunteina","Objektin massa fysiikkamoottorissa"], correct:"Aikaväli edellisen ja nykyisen ruudun välillä" },

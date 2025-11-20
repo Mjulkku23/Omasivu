@@ -17,7 +17,7 @@
     /* yleinen */
     html,body{background:var(--bg);color:var(--text)}
     html{ scroll-behavior:smooth; }
-    a{color:var(--accent)} a:hover{color:#b8d7ff}
+    a{color:var(--accent)} a:hover{color:#b7d7ff}
 
     /* NAVBAR */
     .navbar{
@@ -381,8 +381,8 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/vY4nBa_JWrM?si=ZZxzuyZPJhEWIK1m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 
   <!-- AshenRealms – lisätieto modal -->
   <div class="modal fade" id="ashenModal" tabindex="-1" aria-labelledby="ashenModalLabel" aria-hidden="true">
@@ -649,47 +649,46 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     /* ===== BMI-laskuri ===== */
-(function(){
-  const weightInput = document.getElementById('bmiWeight');
-  const heightInput = document.getElementById('bmiHeight');
-  const btn = document.getElementById('bmiBtn');
-  const out = document.getElementById('bmiOut');
+    (function(){
+      const weightInput = document.getElementById('bmiWeight');
+      const heightInput = document.getElementById('bmiHeight');
+      const btn = document.getElementById('bmiBtn');
+      const out = document.getElementById('bmiOut');
 
-  if(!weightInput || !heightInput || !btn || !out) return;
+      if(!weightInput || !heightInput || !btn || !out) return;
 
-  // Tehdään tuloksesta vaalea ja selkeä
-  out.classList.remove('text-muted');      // poistaa harmaan bootstrap-tyylin
-  out.style.color = '#ffffff';             // täysin valkoinen
-  out.style.fontWeight = '600';            // hieman lihavoitu
-  out.style.fontSize = '0.95rem';          // aavistuksen isompi
+      // Tehdään tuloksesta vaalea ja selkeä
+      out.classList.remove('text-muted');      // poistaa harmaan bootstrap-tyylin
+      out.style.color = '#ffffff';             // täysin valkoinen
+      out.style.fontWeight = '600';            // hieman lihavoitu
+      out.style.fontSize = '0.95rem';          // aavistuksen isompi
 
-  function getBMICategory(bmi){
-    if (bmi < 18.5) return 'Alipaino';
-    if (bmi < 25)   return 'Normaali paino';
-    if (bmi < 30)   return 'Ylipaino';
-    if (bmi < 35)   return 'Lievä lihavuus';
-    if (bmi < 40)   return 'Merkittävä lihavuus';
-    return 'Vaikea lihavuus';
-  }
+      function getBMICategory(bmi){
+        if (bmi < 18.5) return 'Alipaino';
+        if (bmi < 25)   return 'Normaali paino';
+        if (bmi < 30)   return 'Ylipaino';
+        if (bmi < 35)   return 'Lievä lihavuus';
+        if (bmi < 40)   return 'Merkittävä lihavuus';
+        return 'Vaikea lihavuus';
+      }
 
-  btn.addEventListener('click', () => {
-    const w = parseFloat(String(weightInput.value).replace(',', '.'));
-    const hCm = parseFloat(String(heightInput.value).replace(',', '.'));
+      btn.addEventListener('click', () => {
+        const w = parseFloat(String(weightInput.value).replace(',', '.'));
+        const hCm = parseFloat(String(heightInput.value).replace(',', '.'));
 
-    if (!w || !hCm || w <= 0 || hCm <= 0) {
-      out.textContent = 'Anna paino ja pituus oikein.';
-      return;
-    }
+        if (!w || !hCm || w <= 0 || hCm <= 0) {
+          out.textContent = 'Anna paino ja pituus oikein.';
+          return;
+        }
 
-    const hM = hCm / 100;
-    const bmi = w / (hM * hM);
-    const rounded = Math.round(bmi * 10) / 10; // halutessasi vaihda 5 desimaaliin
-    const cat = getBMICategory(bmi);
+        const hM = hCm / 100;
+        const bmi = w / (hM * hM);
+        const rounded = Math.round(bmi * 10) / 10; // halutessasi vaihda 5 desimaaliin
+        const cat = getBMICategory(bmi);
 
-    out.textContent = `BMI: ${rounded.toFixed(1)} — ${cat}`;
-  });
-})();
-
+        out.textContent = `BMI: ${rounded.toFixed(1)} — ${cat}`;
+      });
+    })();
 
     // NAV-varjo skrollissa
     (function(){
